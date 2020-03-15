@@ -1,0 +1,13 @@
+debug: true
+spring:
+  application:
+    name: Tourism portal K. Okhrimenko
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/web/templates/pages/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
