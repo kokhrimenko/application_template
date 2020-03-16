@@ -16,6 +16,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class MvcConfig implements WebMvcConfigurer {
 
     public static final String HOME_PAGE = "/home";
+    public static final String LOGIN_PAGE = "/login";
     public static final String PROFILE_PAGE = "/profile";
     public static final String ROOT_PAGE = "/";
     
@@ -24,6 +25,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController(HOME_PAGE).setViewName("home");
         registry.addViewController(ROOT_PAGE).setViewName("home");
         registry.addViewController(PROFILE_PAGE).setViewName("profile");
+        registry.addViewController(LOGIN_PAGE).setViewName("login");
     }
 
     @Override

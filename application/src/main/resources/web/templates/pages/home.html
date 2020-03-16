@@ -1,5 +1,31 @@
 <header th:replace="../fragments/header.html"/>
-	<h1><p th:text="#{pages.home.title}">Title</p></h1>
-
-	<p>Click <a th:href="@{/profile}">here</a> to see a greeting.</p>
+<nav sec:authorize="isAuthenticated()" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="nav-link disabled" th:text="#{nav.pages.home}">Home</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/profile}" th:text="#{nav.pages.profile}">Profile</a>
+            </li>
+        </ul>
+        <div class="mt-2 mt-md-0">
+            <span class="badge badge-secondary" th:text="${#authentication.getPrincipal().getUsername()}"></span>
+            <a class="btn btn-warning" th:href="@{/logout}" th:text="#{links.logout}">Logout</a>
+        </div>
+    </div>
+</nav>
+<main role="main" class="container">
+    <div class="jumbotron">
+        <div class="inner">
+            <h1>
+                <span th:text="#{pages.home.title}">Title</span>&nbsp;
+                <b sec:authorize="isAuthenticated()" th:text="${#authentication.getPrincipal().getUsername()}"></b>
+            </h1>
+            <div sec:authorize="isAnonymous()">
+                <p>Click <a th:href="@{/login}">here</a> to see a greeting.</p>
+            </div>
+        </div>
+    </div>
+</main>
 <footer th:replace="../fragments/footer.html"/>
