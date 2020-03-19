@@ -19,6 +19,8 @@ public class MvcConfig implements WebMvcConfigurer {
     public static final String LOGIN_PAGE = "/login";
     public static final String PROFILE_PAGE = "/profile";
     public static final String ROOT_PAGE = "/";
+    public static final String REGISTER_PAGE = "/register";
+    public static final String USERS_PAGE = "/users";
     
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -26,6 +28,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController(ROOT_PAGE).setViewName("home");
         registry.addViewController(PROFILE_PAGE).setViewName("profile");
         registry.addViewController(LOGIN_PAGE).setViewName("login");
+        registry.addViewController(USERS_PAGE).setViewName("users");
     }
 
     @Override

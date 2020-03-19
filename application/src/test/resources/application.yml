@@ -10,3 +10,10 @@ spring:
       content-type: text/html
   http:
     log-request-details: true
+  liquibase:
+    enabled: false
+logging:
+  level:
+    root: ERROR
+    org.springframework: ERROR
+    org.hibernate: ERROR
