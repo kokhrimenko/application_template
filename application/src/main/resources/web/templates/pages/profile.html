@@ -1,3 +1,27 @@
 <header th:replace="../fragments/header.html"/>
-	<h1><p th:text="#{pages.profile.title}">Title</p></h1>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}" th:text="#{nav.pages.home}">Home</a>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link disabled" th:text="#{nav.pages.profile}">Profile</span>
+          </li>
+        </ul>
+        <div class="mt-2 mt-md-0">
+            <a class="btn btn-warning" th:href="@{/logout}" th:text="#{links.logout}">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile">
+                <div class="col-sm-12">
+	               <h1><p th:text="#{pages.profile.title}">Title</p></h1>
+               </div>
+           </div>
+        </div>
+    </div>
 <footer th:replace="../fragments/footer.html"/>
