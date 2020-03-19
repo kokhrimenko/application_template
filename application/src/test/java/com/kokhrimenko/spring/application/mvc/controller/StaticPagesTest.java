@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.kokhrimenko.spring.application.Application;
 
 @RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest
 @ContextConfiguration(classes = { Application.class })
 @TestPropertySource("classpath:messages.properties")
