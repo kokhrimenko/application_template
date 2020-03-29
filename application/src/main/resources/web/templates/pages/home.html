@@ -2,11 +2,14 @@
 <nav sec:authorize="isAuthenticated()" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <span class="nav-link disabled" th:text="#{nav.pages.home}">Home</span>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" th:href="@{/profile}" th:text="#{nav.pages.profile}">Profile</a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasAuthority('MANAGE_USERS')">
+                <a class="nav-link" th:href="@{/users}" th:text="#{nav.pages.manage_users}">Manage Users</a>
             </li>
         </ul>
         <div class="mt-2 mt-md-0">
@@ -23,7 +26,8 @@
                 <b sec:authorize="isAuthenticated()" th:text="${#authentication.getPrincipal().getUsername()}"></b>
             </h1>
             <div sec:authorize="isAnonymous()">
-                <p>Click <a th:href="@{/login}">here</a> to see a greeting.</p>
+                <p>Click <a th:href="@{/login}">here</a> to Sign-in.</p>
+                <p>If you haven't account, please <a th:href="@{/register}">Sign-up</a> here.</p>
             </div>
         </div>
     </div>

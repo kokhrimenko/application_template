@@ -4,19 +4,20 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Sign In</h5>
+                    <h5 class="card-title text-center" tx:text="#{pages.login.title}">Sign In</h5>
                     <div class="alert alert-danger" th:if="${param.error}">Invalid username and password.</div>
                     <form th:action="@{/login}" method="post" class="form-signin">
                         <div class="form-label-group">
-                            <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus/>
+                            <input type="email" name="username" class="form-control" th:placeholder="#{fields.pages.common.email}" required autofocus/>
                         </div>
                         <br />
                         <div class="form-label-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password" required/>
+                            <input type="password" name="password" class="form-control" th:placeholder="#{fields.pages.common.password}" required/>
                         </div>
                         <br />
-                        <input type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" value="Sign In"/>
+                        <input type="submit" class="btn btn-lg btn-primary btn-block text-uppercase" th:value="#{buttons.pages.login.sing_in}"/>
                     </form>
+                    <p th:utext="#{messages.pages.login.sign_link}"Sign-Up link></p>
                 </div>
             </div>
         </div>

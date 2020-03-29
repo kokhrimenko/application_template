@@ -2,8 +2,10 @@ package com.kokhrimenko.spring.application.mvc.controller;
 
 import static com.kokhrimenko.spring.application.mvc.MvcConfig.HOME_PAGE;
 import static com.kokhrimenko.spring.application.mvc.MvcConfig.LOGIN_PAGE;
-import static com.kokhrimenko.spring.application.mvc.MvcConfig.ROOT_PAGE;
 import static com.kokhrimenko.spring.application.mvc.MvcConfig.PROFILE_PAGE;
+import static com.kokhrimenko.spring.application.mvc.MvcConfig.ROOT_PAGE;
+import static com.kokhrimenko.spring.application.mvc.MvcConfig.USERS_PAGE;
+import static com.kokhrimenko.spring.application.security.WebSecurityConfig.USER_MANAGER_AUTHORITY;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,6 +68,30 @@ public class SecurityPagesTest {
     @DisplayName("Request /profile page by an authorized user.")
     void testProfilePageWithAuthorization() throws Exception {
         this.mvc.perform(get(PROFILE_PAGE))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Request /users page by an un-authorized user.")
+    void testUsersPageWithoutAuthorization() throws Exception {
+        this.mvc.perform(get(USERS_PAGE))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrlPattern("**" + LOGIN_PAGE));
+    }
+
+    @Test
+    @WithMockUser(authorities = {})
+    @DisplayName("Request /users page by an authorized user but without required role.")
+    void testUsersPageWithAuthorizationWithoutAuthority() throws Exception {
+        this.mvc.perform(get(USERS_PAGE))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(authorities = { USER_MANAGER_AUTHORITY })
+    @DisplayName("Request /users page by an authorized user and with required role.")
+    void testUsersPageWithAuthorizationWithAuthority() throws Exception {
+        this.mvc.perform(get(USERS_PAGE))
                 .andExpect(status().isOk());
     }
 }

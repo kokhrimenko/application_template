@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="init-1-create-user-table" author="oka2008@gmail.com">
+        <createTable tableName="USER" remarks="Applications USER data">
+            <column name="id" type="long" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            
+            <column name="EMAIL" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="PASSWORD" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-1-insert-admin-user" author="oka2008@gmail.com">
+        <insert tableName="USER">
+            <column name="id" value="1" />
+            <column name="EMAIL" value="admin@gmail.com" />
+            <column name="PASSWORD" value="{bcrypt}$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="init-1-insert-user-user" author="oka2008@gmail.com">
+        <insert tableName="USER">
+            <column name="id" value="2" />
+            <column name="EMAIL" value="user@gmail.com" />
+            <column name="PASSWORD" value="{bcrypt}$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="init-2-create-privilage-table" author="oka2008@gmail.com">
+        <createTable tableName="PRIVILEGES">
+            <column name="ID" type="long" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="NAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-2-create-role-table" author="oka2008@gmail.com">
+        <createTable tableName="ROLE">
+            <column name="ID" type="long" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="NAME" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-2-create-role-privileges-table" author="oka2008@gmail.com">
+        <createTable tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" type="long">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="PRIVILEGE_ID" type="long">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-2-create-constraint-role_id-role-privileges" author="oka2008@gmail.com">
+        <addForeignKeyConstraint constraintName="role-privileges_role_id-fk" referencedTableName="ROLE" baseColumnNames="ROLE_ID"
+            baseTableName="ROLE_PRIVILEGES" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="init-2-create-constraint-privilege_id-role-privileges" author="oka2008@gmail.com">
+        <addForeignKeyConstraint constraintName="role-privileges_privilege_id-fk" referencedTableName="PRIVILEGES" baseColumnNames="PRIVILEGE_ID"
+            baseTableName="ROLE_PRIVILEGES" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="init-2-create-user-roles-table" author="oka2008@gmail.com">
+        <createTable tableName="USER_ROLES">
+            <column name="USER_ID" type="long">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="ROLE_ID" type="long">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init-2-create-constraint-user_id-user-roles" author="oka2008@gmail.com">
+        <addForeignKeyConstraint constraintName="user-roles_user_id-fk" referencedTableName="USER" baseColumnNames="USER_ID"
+            baseTableName="USER_ROLES" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="init-2-create-constraint-role_id-user-roles" author="oka2008@gmail.com">
+        <addForeignKeyConstraint constraintName="user-roles_role_id-fk" referencedTableName="ROLE" baseColumnNames="ROLE_ID"
+            baseTableName="USER_ROLES" referencedColumnNames="ID" />
+    </changeSet>
+
+    <changeSet id="init-2-insert-roles" author="oka2008@gmail.com">
+        <insert tableName="ROLE">
+            <column name="ID" value="1" />
+            <column name="NAME" value="ADMIN" />
+        </insert>
+
+        <insert tableName="ROLE">
+            <column name="ID" value="2" />
+            <column name="NAME" value="USER" />
+        </insert>
+
+        <rollback>
+            <delete tableName="ROLE" />               
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init-2-insert-user_roles" author="oka2008@gmail.com">
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="1" />
+            <column name="ROLE_ID" value="1" />
+        </insert>
+
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="1" />
+            <column name="ROLE_ID" value="2" />
+        </insert>
+
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="2" />
+            <column name="ROLE_ID" value="2" />
+        </insert>
+
+        <rollback>
+            <delete tableName="USER_ROLES" />               
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init-2-insert-privileges" author="oka2008@gmail.com">
+        <insert tableName="PRIVILEGES">
+            <column name="ID" value="1" />
+            <column name="NAME" value="VIEW" />
+        </insert>
+
+        <insert tableName="PRIVILEGES">
+            <column name="ID" value="2" />
+            <column name="NAME" value="ADD" />
+        </insert>
+
+        <insert tableName="PRIVILEGES">
+            <column name="ID" value="3" />
+            <column name="NAME" value="EDIT" />
+        </insert>
+
+        <insert tableName="PRIVILEGES">
+            <column name="ID" value="4" />
+            <column name="NAME" value="DELETE" />
+        </insert>
+
+        <insert tableName="PRIVILEGES">
+            <column name="ID" value="5" />
+            <column name="NAME" value="MANAGE_USERS" />
+        </insert>
+
+        <rollback>
+            <delete tableName="PRIVILEGES" />               
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init-2-insert-role_privileges" author="oka2008@gmail.com">
+        <insert tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" value="1" />
+            <column name="PRIVILEGE_ID" value="5" />
+        </insert>
+
+        <insert tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" value="2" />
+            <column name="PRIVILEGE_ID" value="1" />
+        </insert>
+
+        <insert tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" value="2" />
+            <column name="PRIVILEGE_ID" value="2" />
+        </insert>
+
+        <insert tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" value="2" />
+            <column name="PRIVILEGE_ID" value="3" />
+        </insert>
+
+        <insert tableName="ROLE_PRIVILEGES">
+            <column name="ROLE_ID" value="2" />
+            <column name="PRIVILEGE_ID" value="4" />
+        </insert>
+
+        <rollback>
+            <delete tableName="ROLE_PRIVILEGES" />               
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
