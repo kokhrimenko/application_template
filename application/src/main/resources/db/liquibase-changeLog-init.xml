@@ -24,7 +24,7 @@
         <insert tableName="USER">
             <column name="id" value="1" />
             <column name="EMAIL" value="admin@gmail.com" />
-            <column name="PASSWORD" value="{bcrypt}$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
+            <column name="PASSWORD" value="$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
         </insert>
     </changeSet>
 
@@ -32,7 +32,7 @@
         <insert tableName="USER">
             <column name="id" value="2" />
             <column name="EMAIL" value="user@gmail.com" />
-            <column name="PASSWORD" value="{bcrypt}$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
+            <column name="PASSWORD" value="$2a$10$wwaDRt08C2n3tdEmAedJiOskL5GsCKv58Zk2.LzTuo8QSiz2SWBWu" />
         </insert>
     </changeSet>
 

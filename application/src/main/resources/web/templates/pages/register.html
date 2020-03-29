@@ -5,7 +5,7 @@
 			<div class="card card-signin my-5">
                 <div class="card-body">
             		<div th:if="${param.success}">
-                		<div class="alert alert-info" th:unext="#{messages.pages.register.success}"></div>
+                		<div class="alert alert-info" th:utext="#{messages.pages.register.success}"></div>
             		</div>
             		<div th:unless="${param.success}">
             			<h5 class="card-title text-center" th:text="#{pages.registration.title}">Registration</h5>
