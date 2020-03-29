@@ -1,21 +1,15 @@
 # About  
-Application for searching algorithms like search, iterate, some logical tasks and so on. It provides extended information about each algorithm: **complexity**, **resources usage** and so on.  
-Each authorized users to upload their own algorithms with related metadata and share theirs with other users.  
-Has a simple **WEB interface** and endpoints for integrating with 3rd-party applications through the **REST** protocol.
-# Technical details
-All the components of the application are **Docker images** - computation nodes with an **OpenShift** as an orchestrator.
+Web module, which includes all required code and configurations according to the Web UI.
 
-Using technology stack:
-* Spring boot - for WEB UI
-* Apache Kafka as a communication buffer between application and search engine
-* Apache SOLR server as full-text engine
-* Jupiter as a Unit Test framework
+# Used Tools & Technologies
+  * Spring boot
+  * Spring Security
+  * Thymeleaf as HTML template engine
+  * Liquibase - DB management
+  * Tomcat - web container
+  * Junit Jupiter - Unit tests engine
+  * Docker - it also contains Dockerfile - so you can launch this module as a Docker image.
 
-Additional technologies:
-* SonarQube Docker - for code quality support
-
-#Already implemented
-* Spring core module: authorization/registration
-* DB maintenance module: on top of Liquibase
-* Simple WEB UI
-* User roles support: ADMIN, USER with Spring Security mechanism
+# Build process
+* `mvn clean package spring-boot:repackage` - create executable jar file
+* `java -jar target/application.jar` - run **fat** jar 
